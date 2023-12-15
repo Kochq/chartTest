@@ -23,15 +23,25 @@
     labels: ['Label A', 'Label B', 'Label C'],
     datasets: [{
       label: 'My Dataset 2',
-      data: [15, 25, 35],
+      data: [57, 124, 100],
       backgroundColor: ['purple', 'black', 'brown']
     }]
   };
 
 </script>
 
+<style>
+    .allCharts {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+</style>
+
 <main>
-    <div style="display: flex; flex-wrap: wrap; justify-content: center;">
-        <Chart chartData = {chartData1} id = {'chart1'} />
+    <div class="allCharts">
+        <Chart chartData = {chartData1} id = {'chart1'} title = {"Equipos reportando"}/>
+        <Chart chartData = {chartData2} id = {'chart2'} title = {"Equipos encendidos"} />
+        <Chart chartData = {chartData3} id = {'chart3'} title = {"Equipos regando"} />
     </div>
 </main>
