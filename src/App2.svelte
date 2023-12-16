@@ -1,43 +1,53 @@
 <!-- App.svelte -->
-<script>
+<script lang="ts">
     import Chart from './Chart.svelte';
     import { onMount } from 'svelte';
 
+    interface ChartData {
+        labels: string[];
+        datasets: {
+            label?: string;
+            data?: number[];
+            backgroundColor?: string[];
+        }[];
+    }
 
-    let Reportando = {
+    let Reportando: ChartData = {
         labels: ['Reportando', 'No Reportando'],
         datasets: [{
+            data: [],
             backgroundColor: ['green', 'red']
         }]
     };
 
-    let Encendidos = {
+    let Encendidos: ChartData = {
         labels: ['Encendidos', 'Apagados'],
         datasets: [{
+            data: [],
             label: 'My Dataset 1',
             backgroundColor: ['green', 'red']
         }]
     };
 
-    let Regando = {
+    let Regando: ChartData = {
         labels: ['Regando', 'No Regando'],
         datasets: [{
-            data: [0, 0],
+            data: [],
             label: 'My Dataset 2',
             backgroundColor: ['green', 'red']
         }]
     };
 
-    onMount(() => {
-        fetch('http://localhost:8000/graficos/011')
+    const fetchDataAndUpdate = (url: string) => {
+        fetch(url)
             .then(response => response.json())
             .then(data => {
-                Regando.datasets[0].data[1] = data.estaRegando.length;
-                Regando.datasets[0].data[0] = data.noEstaRegando.length;
-                Encendidos.datasets[0].data[1] = data.estaEncendido.length;
-                Encendidos.datasets[0].data[0] = data.noEstaEncendido.length;
-                Reportando.datasets[0].data[1] = data.estaReportando.length;
-                Reportando.datasets[0].data[0] = data.noEstaReportando.length;
+                Regando.datasets[0].data[0] = data.estaRegando.length;
+                Regando.datasets[0].data[1] = data.noEstaRegando.length;
+                Encendidos.datasets[0].data[0] = data.estaEncendido.length;
+                Encendidos.datasets[0].data[1] = data.noEstaEncendido.length;
+                Reportando.datasets[0].data[0] = data.estaReportando.length;
+                Reportando.datasets[0].data[1] = data.noEstaReportando.length;
             })
             .catch(error => {
                 Regando.datasets[0].data = [1,1];
@@ -45,6 +55,14 @@
                 Reportando.datasets[0].data = [1,1];
                 console.error('Error fetching data:', error);
             });
+    };
+
+    onMount(() => {
+        fetchDataAndUpdate('http://localhost:8000/graficos/011')
+
+        setInterval(() => {
+            fetchDataAndUpdate('http://localhost:8000/graficos/011')
+        }, 5000);
     });
 </script>
 

@@ -1,5 +1,5 @@
 <script>
-    import { onMount, onDestroy, afterUpdate, setContext } from 'svelte';
+    import { onMount, onDestroy } from 'svelte';
     import Chart from 'chart.js/auto';
 
     export let chartData;
@@ -8,7 +8,7 @@
 
     let chart;  
 
-    function initializeChart() {
+    onMount(() => {
         const ctx = document.getElementById(id);
 
         // @ts-ignore
@@ -20,15 +20,6 @@
                 maintainAspectRatio: false
             }
         });
-    }    
-
-    onMount(() => {
-        initializeChart();
-    });
-
-    afterUpdate(() => {
-        chart.data = chartData;
-        chart.update();
     });
 
     onDestroy(() => {
@@ -36,6 +27,11 @@
             chart.destroy();
         }
     });
+
+    $: if(chart) {
+        chart.data = chartData;
+        chart.update();
+    }
 
     /** @param {any} evt */
     function clickHandler(evt) {
@@ -51,7 +47,6 @@
 
 </script>
 
-
 <style>
     h1 {
         font-size: 1.5rem;
@@ -65,7 +60,16 @@
         margin: 20px;
     }
 </style>
+
 <div class="chart">
     <h1>{title}</h1>
+    {#if chartData.datasets[0].data < 1}
+        <div>Loading...</div>
+    {/if}
     <canvas id={id}></canvas>
+    {#if chartData.datasets[0].data.length > 0}
+        <br>
+        <div>{chartData.labels[0]}: {chartData.datasets[0].data[0]}</div>
+        <div>{chartData.labels[1]}: {chartData.datasets[0].data[1]}</div>
+    {/if}
 </div>
