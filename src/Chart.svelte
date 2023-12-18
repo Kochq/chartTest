@@ -35,12 +35,13 @@
 
     /** @param {any} evt */
     function clickHandler(evt) {
-        const points = chart.getElementsAtEventForMode(evt, 'nearest', { intersect: false }, true);
+        const points = chart.getElementsAtEventForMode(evt, 'nearest', { intersect: true }, true);
         if (points.length) {
             const firstPoint = points[0];
             const label = chart.data.labels[firstPoint.index];
             const value = chart.data.datasets[firstPoint.datasetIndex].data[firstPoint.index];
-            console.log(label, value);
+            alert("Hay " + value + " equipos que estan " + label)
+            console.log(label + ":" , value);
         }
 
     }
