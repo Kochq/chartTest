@@ -1,5 +1,6 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
+    import router from 'page';
     import Chart from 'chart.js/auto';
 
     export let chartData;
@@ -40,8 +41,8 @@
             const firstPoint = points[0];
             const label = chart.data.labels[firstPoint.index];
             const value = chart.data.datasets[firstPoint.datasetIndex].data[firstPoint.index];
-            alert("Hay " + value + " equipos que estan " + label)
             console.log(label + ":" , value);
+            router('/info/' + value)
         }
 
     }
