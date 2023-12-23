@@ -10,7 +10,6 @@
     let params:any
     router('/', () => page = Home)
     router('/info/:id', (ctx: any,next: any) => { params = ctx.params; next(); }, () => page = Info)
-
     router('/monitor', () => page = Monitor)
 
     router.start()

@@ -1,11 +1,16 @@
 <script>
-    import { onMount, onDestroy } from 'svelte';
+    import { onMount, onDestroy, getContext, setContext } from 'svelte';
     import router from 'page';
     import Chart from 'chart.js/auto';
 
     export let chartData;
     export let title = "Chart"
     export let id;
+
+    let esto = getContext('equipos');
+    setContext('equipo', esto)
+
+    console.log(esto)
 
     let chart;  
 
@@ -40,9 +45,10 @@
         if (points.length) {
             const firstPoint = points[0];
             const label = chart.data.labels[firstPoint.index];
+            const esto = chart.data.datasets[0].label
             const value = chart.data.datasets[firstPoint.datasetIndex].data[firstPoint.index];
             console.log(label + ":" , value);
-            router('/info/' + value)
+            router('/info/' + esto, { replace: true }, { id: label })
         }
 
     }
