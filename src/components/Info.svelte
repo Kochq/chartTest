@@ -1,14 +1,10 @@
 <script lang="ts">
-    import { onMount } from "svelte";
     import Equipo from "./Equipo.svelte"
 
 
-    export let params;
-    const { id } = params;
-    let response;
+    export let params: any;
 
-
-    response = fetch(`http://localhost:8000/graficos/011/${id}`)
+    let response = fetch(`http://localhost:8000/graficos/011/${params.id}`)
         .then(res => res.json())
         .then(data => data)
 
@@ -23,6 +19,7 @@
             {#each response as data}
                 <Equipo {data}/>
             {/each}
+
             {:catch e}
             <p>Something went wrong {e}</p>
         {/await}
@@ -33,5 +30,6 @@
 .container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 </style>

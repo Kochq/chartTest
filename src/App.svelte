@@ -1,47 +1,29 @@
 <!-- App.svelte -->
-<script>
-    import Chart from './Chart.svelte';
+<script lang="ts">
+    import router from 'page'
+    import Monitor from './views/Monitor.svelte'
+    import Home from './components/Home.svelte';
+    import Info from './components/Info.svelte';
 
-    const chartData1 = {
-        labels: ['Fallas', 'Funcionando', 'Warning'],
-        datasets: [{
-            data: [345,231,23],
-            backgroundColor: ['Red', 'Green', 'Yellow']
-        }]
-    };
+    let page: any
 
-    const chartData2 = {
-        labels: ['Label 1', 'Label 2', 'Label 3'],
-        datasets: [{
-            label: 'My Dataset 1',
-            data: [10, 20, 30],
-            backgroundColor: ['red', 'green', 'blue']
-        }]
-    };
+    let params:any
+    router('/', () => page = Home)
+    router('/info/:id', (ctx: any,next: any) => { params = ctx.params; next(); }, () => page = Info)
+    router('/monitor', () => page = Monitor)
 
-    const chartData3 = {
-       labels: ['Label A', 'Label B', 'Label C'],
-        datasets: [{
-            label: 'My Dataset 2',
-            data: [57, 124, 100],
-            backgroundColor: ['purple', 'black', 'brown']
-        }]
-    };
-
+    router.start()
 </script>
 
+{#if params != null}
+    <svelte:component this={page} {params} />
+{:else}
+    <svelte:component this={page} />
+{/if}
+
+
 <style>
-    .allCharts {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
 </style>
 
 <main>
-    <div class="allCharts">
-        <Chart chartData = {chartData1} id = {'chart1'} title = {"Equipos reportando"}/>
-        <Chart chartData = {chartData2} id = {'chart2'} title = {"Equipos encendidos"} />
-        <Chart chartData = {chartData3} id = {'chart3'} title = {"Equipos regando"} />
-    </div>
 </main>

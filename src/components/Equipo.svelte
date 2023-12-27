@@ -1,13 +1,30 @@
 <script>
     export let data
-    const {day, direccion2, direction, horimetro, id, lat, lng, porcentajeAvance, presion, regando, rumbo, stat, tension, time} = data
+    const {
+        lat,
+        lng,
+        day,
+        stat,
+        time,
+        rumbo,
+        regando,
+        tension,
+        presion,
+        nombreEq,
+        direction,
+        horimetro,
+        direccion2,
+        porcentajeAvance,
+    } = data
+
     let backgroundColor = stat ? 'green' : 'red';
+
 </script>
 
 
 <main>
     <div class="container" style="background-color: {backgroundColor};">
-        <p>{id}</p>
+        <p>{nombreEq}</p>
         <p>Ultimo reporte {day} {time}</p>
         {#if stat}
            <p>Esta encendido</p> 
@@ -25,5 +42,7 @@
     align-items: center;
     border: 1px solid black;
     margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
 }
 </style>
