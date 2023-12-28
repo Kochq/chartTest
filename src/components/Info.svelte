@@ -1,13 +1,10 @@
 <script lang="ts">
     import Equipo from "./Equipo.svelte"
-
-
     export let params: any;
 
     let response = fetch(`http://localhost:8000/graficos/011/${params.id}`)
         .then(res => res.json())
         .then(data => data)
-
 </script>
 
 <main>
