@@ -1,6 +1,6 @@
 <script lang="ts">
     import Chart from './../components/Chart.svelte';
-    import { onMount, setContext } from 'svelte';
+    import { onDestroy, onMount, setContext } from 'svelte';
 
     interface ChartData {
         labels: string[];
@@ -10,6 +10,8 @@
             backgroundColor?: string[];
         }[];
     }
+
+    let intervalId: number;
 
     let reportando: ChartData = {
         labels: ['Reportando', 'No Reportando'],
@@ -62,12 +64,13 @@
     onMount(() => {
         fetchDataAndUpdate('http://localhost:8000/graficos/011')
 
-        setInterval(() => {
+        intervalId = setInterval(() => {
             fetchDataAndUpdate('http://localhost:8000/graficos/011')
             console.log("fetch")
         }, 5000);
     });
 
+    onDestroy(() => clearInterval(intervalId)) // Stop the data fetching once the component is destroyed
 
 </script>
 
