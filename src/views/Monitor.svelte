@@ -1,6 +1,6 @@
 <script lang="ts">
     import Chart from './../components/Chart.svelte';
-    import { onDestroy, onMount, setContext } from 'svelte';
+    import { onDestroy, onMount } from 'svelte';
 
     interface ChartData {
         labels: string[];
