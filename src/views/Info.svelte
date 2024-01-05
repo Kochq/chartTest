@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Equipo from "./Equipo.svelte"
+    import Equipo from "./../components/Equipo.svelte"
     export let params: any;
 
     let response = fetch(`http://localhost:8000/graficos/011/${params.id}`)

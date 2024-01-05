@@ -2,8 +2,8 @@
 <script lang="ts">
     import router from 'page'
     import Monitor from './views/Monitor.svelte'
+    import Info from './views/Info.svelte';
     import Home from './components/Home.svelte';
-    import Info from './components/Info.svelte';
 
     let page: any
 
