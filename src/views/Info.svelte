@@ -2,7 +2,7 @@
     import Equipo from "./../components/Equipo.svelte"
     export let params: any;
 
-    let response = fetch(`http://localhost:8000/graficos/011/${params.id}`)
+    let response = fetch(`http://localhost:8000/equipos/011/resumen/${params.id}`)
         .then(res => res.json())
         .then(data => data)
 </script>

@@ -62,11 +62,12 @@
     };
 
     onMount(() => {
-        fetchDataAndUpdate('http://localhost:8000/graficos/011')
+        fetchDataAndUpdate('http://localhost:8000/equipos/011/resumen')
+        console.log("fetch monitor")
 
         intervalId = setInterval(() => {
-            fetchDataAndUpdate('http://localhost:8000/graficos/011')
-            console.log("fetch")
+            fetchDataAndUpdate('http://localhost:8000/equipos/011/resumen')
+            console.log("fetch monitor")
         }, 5000);
     });
 

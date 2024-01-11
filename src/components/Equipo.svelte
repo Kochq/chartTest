@@ -3,9 +3,9 @@
     const {
         lat,
         lng,
-        day,
+        dia,
         stat,
-        time,
+        hora,
         rumbo,
         regando,
         tension,
@@ -23,7 +23,7 @@
 
 <div class="container" style="background-color: {backgroundColor};">
     <p>{nombreEq}</p>
-    <p>Ultimo reporte {day} {time}</p>
+    <p>Ultimo reporte {dia} {hora}</p>
     {#if stat}
         <p>Esta encendido</p>
     {:else}
